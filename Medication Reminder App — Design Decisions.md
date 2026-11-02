@@ -124,7 +124,9 @@ One function, `reconcile(now)`, owns all dose-state logic. Every trigger calls i
 8. If the app has not been opened for more than a month, post the inactivity nudge (see Onboarding and permissions).
 9. Write a diagnostics entry: what rang, and what was armed for when.
 
-**Clock changes:** when the clock moves back, rows the app created that the user never touched and that are now in the future are deleted, and "doses generated until" moves back with them. Rows the user acted on are kept.
+**Clock changes:** when the clock moves back, rows the app created that the user never touched and that are now in the future are deleted, and "doses generated until" moves back with them. Rows the user acted on are kept. Reconcile spots this itself ("doses generated until" is ahead of now), so it needs no flag from the trigger.
+
+**Time-zone changes:** future rows keep their wall-clock time, so their instant moves with the zone. After a jump east, wall-clock times the clock skipped over get rows too: rung late if still inside their window, otherwise marked missed. After a jump west, a wall-clock time that comes round again does not ring twice.
 
 ## Alarm architecture
 

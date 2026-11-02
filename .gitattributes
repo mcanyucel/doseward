@@ -1,0 +1,5 @@
+# Store text files with LF and keep LF in the working copy, on any OS.
+* text=auto eol=lf
+
+# Windows batch files need CRLF to run.
+*.bat text eol=crlf
